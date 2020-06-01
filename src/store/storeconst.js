@@ -1,1 +1,1 @@
-export const ACTOR = 'actor'
+export const ADDROLE = 'addRole'
