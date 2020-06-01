@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from '../store'
 import { Toast } from 'vant'
 
 export function baserequest(config) {
@@ -11,7 +10,10 @@ export function baserequest(config) {
   // 请求拦截
   instance.interceptors.request.use(
     config => {
-      store.commit('showLoading')
+      Toast.loading({
+        message: '加载中...',
+        forbidClick: true
+      })
       if (config.uploadFile) {
         config.headers['Content-Type'] = 'multipart/form-data'
       } else {
@@ -21,18 +23,18 @@ export function baserequest(config) {
     },
     err => {
       console.log(err)
-      store.commit('hideLoading')
+      Toast.clear()
       return Promise.reject(err)
     })
     // 响应拦截
     instance.interceptors.response.use(
       res => {
-        store.commit('hideLoading')
+        Toast.clear()
         return res.data
       },
       error => {
         debugger
-        store.commit('hideLoading')
+        Toast.clear()
         console.log('err',error.response)
         if (error) {
           switch (error.response.status) {

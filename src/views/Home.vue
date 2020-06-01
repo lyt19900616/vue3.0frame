@@ -1,57 +1,48 @@
 <template>
-  <div class="home-box">
-    <van-nav-bar fixed title="首页" />
-  </div>
+  <div>
+    <div class="list-title">获取演员</div>
+    <span class="list-con"
+      v-for="(item, index) in actor" :key="index"
+      >
+      {{item.name}}
+    </span>
+    <div class="list-title">获取大于60岁的演员</div>
+    <span class="list-con"
+      v-for="(item, index) in actor60" :key="index + '60'"
+      >
+      {{item.name}}
+    </span>
+    <div class="list-title">获取大于65岁的演员</div>
+    <span class="list-con"
+      v-for="(item, index) in actor65" :key="index + '65'"
+      >
+      {{item.name}}
+    </span>
+  </div>  
 </template>
 
 <script>
-import { Toast } from 'vant'
-import { testData } from 'network/request.js'
-
 export default {
   data() {
     return {
-      
+      actor: this.$store.getters.getActor,
+      actor60: this.$store.getters.getActorByAge(60),
+      actor65: this.$store.getters.getActorByAge(65)
     }
   },
-  created() {
-     let param = {
-       channelType: '0', 
-       pageNum: this.pageNum, 
-       pageSize: '10'
-     }
-     let _this = this
-     testData('/dialogue/problemQuery',param).then(res => {
-      console.log(res)
-      if (res.code === '000000') {
-        if (_this.refreshing) {
-          _this.list = [];
-          _this.refreshing = false;
-        }
-        _this.totalCount = res.data.totalCount
-        _this.list = _this.list.concat(res.data.list)
-        _this.loading = false
-        if (_this.list.length >= _this.totalCount) {
-          _this.finished = true
-        }
-      } else {
-        Toast(res.message)
-      }
-    })
-  }
 }
 </script>
-<style>
-.home-box .van-nav-bar {
-  background-color: #4E74BB;
+<style scoped>
+.list-title {
+  padding: 10px;
+  color: var(--themeColor);
+  font-size: 1rem;
+  border-bottom: 1px dashed var(--themeColor);
 }
-.home-box .van-nav-bar__title {
-  color: #fff;
+.list-con {
+  display: inline-block;
+  margin: 10px;
+  color: var(--subBlack);
 }
-.home-box .van-nav-bar__text {
-  color: #fff;
-}
-.home-box .van-nav-bar .van-icon {
-  color: #fff;
-}
+
 </style>

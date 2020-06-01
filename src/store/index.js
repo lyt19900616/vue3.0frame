@@ -5,30 +5,30 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    user: {
-      name: '冯志华',
-      type: 1,
-      id: '1004'
-    },
-    LOADING: false
+    actor: [
+      {name: '李雪健', age: 66, production: '水浒传',tag: true},
+      {name: '陈道明', age: 65, production: '康熙王朝',tag: true},
+      {name: '陈宝国', age: 64, production: '大宅门', tag: true},
+      {name: '唐国强', age: 68, production: '三国演义', tag: true},
+      {name: '何冰', age: 52, production: '白鹿原', tag: true},
+      {name: '李耀亭', age: 30, production: 'VUE', tag: false}
+    ]
   },
-  mutations: {
-    changeUser(state, user) {
-      state.user.name = user.name,
-      state.user.type = user.type
-      state.user.id = user.id
+  getters: {
+    getActor(state) { // 指定的处理 获取是演员的数据
+      return state.actor.filter( actor => actor.tag)
     },
-    showLoading(state) {
-      state.LOADING = true
-    },
-    hideLoading(state) {
-      state.LOADING = false
+    getActorByAge(state) { // 根据我们传递的参数进行数据过滤
+      return (age) => {
+        return state.actor.filter( actor => actor.age > age)
+      }
     }
   },
+  mutations: {
+    
+  },
   actions: {
-    // SHOW_LOADING({commit},show) {
-    //   commit(constant.SHOW_LOADING, show)
-    // }
+   
   },
   modules: {
   }
