@@ -31,11 +31,11 @@ export default {
         case 3:
           this.$router.replace('/module')
           break;
-          
+
         default:
           break;
       }
-      
+
     }
   },
 }
@@ -43,20 +43,6 @@ export default {
 <style>
 @import "common/normalize.css";
 #app {
-  /* 主题颜色 */
-  --themeColor: #4E74BB;
-  /* 标题，导航的颜色 */
-  --mainBlack: #262626;
-  /* 次黑色 */
-  --subBlack: #3A3A3A;
-  /* 段落标题  深灰色*/
-  --darkGray: #7C7C7C;
-  /* 大幅文字 灰色 */
-  --norGray: #A5A5A5;
-  /* 分割线颜色 */
-  --lineColor: #D3D3D3;
-  /* 背景色 */
-  --backgroundColor: #E5E5E5;
   width: 100%;
   height: 100%;
 }
